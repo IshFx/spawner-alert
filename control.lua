@@ -73,7 +73,7 @@ function check_and_alert(event)
         for _, player in pairs(players) do
             if (players_toggle_state[player.index]) then
                 player.add_custom_alert(
-                    player.character, {type = "item", name = "gun-turret"},
+                    player.character, {type = "fluid", name = "spawner-alert-icon"},
                     "Spawners are consuming " .. pollution_count_per_sec ..
                         " pollution/s.", true
                 )

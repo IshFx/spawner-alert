@@ -28,4 +28,5 @@
 -- SOFTWARE.
 --
 
-require("prototypes.user_input")
+require("prototypes.user_inputs")
+require("prototypes.signals")
