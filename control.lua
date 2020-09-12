@@ -63,17 +63,17 @@ function check_and_alert(event)
 
     stats_to_fetch.name = "biter-spawner"
     local biter_count = game.pollution_statistics.get_flow_count(stats_to_fetch)
-    local pollution_count_per_sec =
-        math.floor((spitter_count + biter_count) / 5)
+    local pollution_count_per_sec = math.ceil(spitter_count + biter_count)
 
     -- alert players if alert is enabled
     if pollution_count_per_sec > 0 then
         local players = game.players
 
         for _, player in pairs(players) do
-            if (players_toggle_state[player.index]) then
+            if (player.character and players_toggle_state[player.index]) then
                 player.add_custom_alert(
-                    player.character, {type = "fluid", name = "spawner-alert-icon"},
+                    player.character,
+                    {type = "fluid", name = "spawner-alert-icon"},
                     "Spawners are consuming " .. pollution_count_per_sec ..
                         " pollution/s.", true
                 )

@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.2
+Date: 2020-09-12
+  Changes:
+    - Fix bug where alerts where not shown when consummed pollution was low
+    - Fix bug where mod would crash in god mode.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 2020-08-29
   Changes:
