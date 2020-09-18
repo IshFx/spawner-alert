@@ -82,9 +82,15 @@ function check_and_alert(event)
     end
 end
 
+function handle_configuration_update(event)
+    -- Initialize global player variable for older versions
+    global.players = global.players or {}
+end
+
 -- ------------------------------------------------------------------------------------ --
 --                                        Events                                        --
 -- ------------------------------------------------------------------------------------ --
 
+script.on_configuration_changed(handle_configuration_update)
 script.on_event(input_control_name, toggle_alert)
 script.on_nth_tick(60, check_and_alert)
