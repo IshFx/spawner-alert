@@ -28,23 +28,26 @@
 -- SOFTWARE.
 --
 local input_control_name = "spawner-alert-toggle"
-local players_toggle_state = {}
+global.players = {}
 
--- -------------------------------------------------------------------------- --
---                                  Handlers                                  --
--- -------------------------------------------------------------------------- --
+-- ------------------------------------------------------------------------------------ --
+--                                       Handlers                                       --
+-- ------------------------------------------------------------------------------------ --
 
 function toggle_alert(event)
     local player = game.get_player(event.player_index)
 
     -- toggle alert switch
-    players_toggle_state[player.index] =
-        not (players_toggle_state[player.index])
+    if (global.players[player.index] == nil) then
+        global.players[player.index] = {alert = true}
+    else
+        global.players[player.index].alert = not (global.players[player.index].alert)
+    end
 
     player.print(
         "Spawner alert status: " ..
-            (players_toggle_state[player.index] and 'enabled' or 'disabled'),
-        {r = 1, g = 0.2, b = 0.2}
+            (global.players[player.index].alert and 'enabled' or 'disabled'),
+        {r = 1, g = 0.25, b = 0.25}
     )
 end
 
@@ -57,9 +60,7 @@ function check_and_alert(event)
         count = true
     }
 
-    local spitter_count = game.pollution_statistics.get_flow_count(
-                              stats_to_fetch
-                          )
+    local spitter_count = game.pollution_statistics.get_flow_count(stats_to_fetch)
 
     stats_to_fetch.name = "biter-spawner"
     local biter_count = game.pollution_statistics.get_flow_count(stats_to_fetch)
@@ -70,10 +71,9 @@ function check_and_alert(event)
         local players = game.players
 
         for _, player in pairs(players) do
-            if (player.character and players_toggle_state[player.index]) then
+            if (player.character and global.players[player.index].alert) then
                 player.add_custom_alert(
-                    player.character,
-                    {type = "fluid", name = "spawner-alert-icon"},
+                    player.character, {type = "fluid", name = "spawner-alert-icon"},
                     "Spawners are consuming " .. pollution_count_per_sec ..
                         " pollution/s.", true
                 )
@@ -82,9 +82,9 @@ function check_and_alert(event)
     end
 end
 
--- -------------------------------------------------------------------------- --
---                                   Events                                   --
--- -------------------------------------------------------------------------- --
+-- ------------------------------------------------------------------------------------ --
+--                                        Events                                        --
+-- ------------------------------------------------------------------------------------ --
 
 script.on_event(input_control_name, toggle_alert)
 script.on_nth_tick(60, check_and_alert)

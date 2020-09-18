@@ -1,16 +1,21 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.3
+Date: 2020-09-18
+  Bugfixes:
+    - Fixed a bug where the player gets desynchronized in a multiplayer game at alert enable.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.2
 Date: 2020-09-12
-  Changes:
-    - Fix bug where alerts where not shown when consummed pollution was low
-    - Fix bug where mod would crash in god mode.
+  Bugfixes:
+    - Fixed a bug where alerts where not shown when consummed pollution was low.
+    - Fixed a bug where mod would crash in god mode.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: 2020-08-29
   Changes:
-    - Update alert icon
+    - Updated alert icon.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.0
 Date: 2020-08-27
   Info:
-    - Initial release
+    - Initial release.
