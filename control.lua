@@ -83,8 +83,13 @@ function check_and_alert(event)
 end
 
 function handle_configuration_update(event)
-    -- Initialize global player variable for older versions
+    -- initialize global player variable for older versions
     global.players = global.players or {}
+
+    -- alerts enabled by default
+    for _, player in pairs(game.players) do
+        global.players[player.index] = global.players[player.index] or {alert = true}
+    end
 end
 
 -- ------------------------------------------------------------------------------------ --

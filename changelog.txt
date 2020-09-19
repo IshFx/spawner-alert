@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.1.5
+Date: 2020-09-19
+  Bugfixes:
+    - Fixed a bug where mod would crash at startup if pollution consumption was greater than 0.
+---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: 2020-09-19
   Bugfixes:
