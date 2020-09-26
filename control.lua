@@ -28,7 +28,6 @@
 -- SOFTWARE.
 --
 local input_control_name = "spawner-alert-toggle"
-global.players = {}
 
 -- ------------------------------------------------------------------------------------ --
 --                                       Handlers                                       --
@@ -82,13 +81,19 @@ function check_and_alert(event)
     end
 end
 
-function handle_configuration_update(event)
-    -- initialize global player variable for older versions
+function player_joined(player)
+    index = player.index or player.player_index
+    global.players[index] = global.players[index] or {}
+    global.players[index].alert = global.players[index].alert or true
+end
+
+function init_mod(event)
+    -- initialize global player variable
     global.players = global.players or {}
 
-    -- alerts enabled by default
+    -- initialize each player
     for _, player in pairs(game.players) do
-        global.players[player.index] = global.players[player.index] or {alert = true}
+        player_joined(player)
     end
 end
 
@@ -96,6 +101,8 @@ end
 --                                        Events                                        --
 -- ------------------------------------------------------------------------------------ --
 
-script.on_configuration_changed(handle_configuration_update)
+script.on_init(init_mod)
+script.on_configuration_changed(init_mod)
+script.on_event(defines.events.on_player_joined_game, player_joined)
 script.on_event(input_control_name, toggle_alert)
 script.on_nth_tick(60, check_and_alert)
