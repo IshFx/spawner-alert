@@ -1,10 +1,10 @@
 {
     "name": "spawner-alert",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "title": "Spawner alert",
     "author": "Ishfx",
     "contact": "persoishtar@gmail.com",
-    "factorio_version": "1.0",
+    "factorio_version": "1.1",
     "dependencies": ["base >= 1.0"],
     "description": "This mod alerts you when spawners start consuming pollution. Surprise them before they surprise you!"
 }
