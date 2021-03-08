@@ -55,7 +55,9 @@ function check_and_alert(event)
     local stats_to_fetch = {
         name = "spitter-spawner",
         input = false,
-        precision_index = defines.flow_precision_index.one_second or defines.flow_precision_index.five_seconds,
+        precision_index = 
+            defines.flow_precision_index.one_second or 
+            defines.flow_precision_index.five_seconds,
         count = true
     }
 
@@ -63,18 +65,17 @@ function check_and_alert(event)
 
     stats_to_fetch.name = "biter-spawner"
     local biter_count = game.pollution_statistics.get_flow_count(stats_to_fetch)
-    local pollution_count_per_sec = math.ceil(spitter_count + biter_count)
+    local pollution_count = math.ceil(spitter_count + biter_count)
 
     -- alert players if alert is enabled
-    if pollution_count_per_sec > 0 then
+    if pollution_count > 0 then
         local players = game.players
 
         for _, player in pairs(players) do
             if (player.character and global.players[player.index].alert) then
                 player.add_custom_alert(
                     player.character, {type = "fluid", name = "spawner-alert-icon"},
-                    "Spawners are consuming " .. pollution_count_per_sec ..
-                        " pollution/s.", true
+                    "Spawners are consuming " .. pollution_count .. " pollution/s.", true
                 )
             end
         end
@@ -88,7 +89,7 @@ function player_joined(player)
 end
 
 function init_mod(event)
-    -- initialize global player variable
+    -- initialize global players variable
     global.players = global.players or {}
 
     -- initialize each player
