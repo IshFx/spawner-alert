@@ -55,7 +55,7 @@ function check_and_alert(event)
     local stats_to_fetch = {
         name = "spitter-spawner",
         input = false,
-        precision_index = defines.flow_precision_index.one_second,
+        precision_index = defines.flow_precision_index.one_second or defines.flow_precision_index.five_seconds,
         count = true
     }
 
